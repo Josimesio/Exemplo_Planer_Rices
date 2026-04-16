@@ -1,0 +1,28 @@
+PACOTE ONLINE DO DASHBOARD
+==========================
+
+Este pacote foi preparado para hospedagem online.
+
+Arquivos que devem ficar no MESMO diretório do site:
+- login.html
+- index.html
+- auth.js
+- config.js
+- script.js
+- style.css
+- Programa Conecta - Acompanhamento interno.xlsx
+- AN.020 - Acompanhamento RICE's.xlsx
+
+Como publicar:
+1) Envie todos os arquivos para a mesma pasta no servidor.
+2) Abra login.html no endereço publicado do site.
+3) O painel fará a leitura automática das duas planilhas.
+
+Credenciais:
+- usuário: conecta
+- senha: pluma@2026
+
+Observações:
+- O pacote já está preparado para leitura automática por HTTP/HTTPS.
+- Não use por duplo clique local, porque o navegador bloqueia leitura automática de arquivo local.
+- As planilhas deste pacote já foram saneadas e mantêm os nomes esperados pelo painel.

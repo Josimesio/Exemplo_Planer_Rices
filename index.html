@@ -2,916 +2,350 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard Executivo - Empresa x Consultoria</title>
+  <title>Dashboard Executivo de Entregas | RICEs Iguais</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0b1020;
-      --card: rgba(18, 26, 53, 0.94);
-      --line: rgba(255,255,255,0.08);
-      --text: #edf2ff;
-      --muted: #aab8df;
-      --accent: #7c5cff;
-      --accent2: #14d3a6;
-      --warning: #ffb84d;
-      --danger: #ff6b7a;
-      --neutral: #c8d4ff;
-      --radius: 22px;
-      --shadow: 0 24px 70px rgba(0,0,0,.35);
-    }
-
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(124,92,255,.16), transparent 25%),
-        radial-gradient(circle at top right, rgba(20,211,166,.10), transparent 28%),
-        linear-gradient(180deg, #0a1021 0%, #0d1430 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    .bg-grid {
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
-      background-size: 34px 34px;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,.8), transparent 92%);
-      pointer-events: none;
-    }
-
-    .orb {
-      position: fixed;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      filter: blur(82px);
-      opacity: .18;
-      pointer-events: none;
-    }
-    .orb.one { background: #7c5cff; top: -120px; left: -100px; }
-    .orb.two { background: #14d3a6; right: -120px; top: 180px; }
-
-    .shell {
-      width: min(1420px, calc(100% - 28px));
-      margin: 24px auto 42px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-    }
-
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 20px;
-      margin-bottom: 18px;
-    }
-
-    .brand small {
-      display: block;
-      color: #8ea0d7;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      font-weight: 700;
-      font-size: .72rem;
-      margin-bottom: 4px;
-    }
-
-    .brand strong {
-      font-size: 1.15rem;
-      font-weight: 800;
-    }
-
-    .meta {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .meta-pill {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-      color: var(--muted);
-      font-size: .84rem;
-      font-weight: 600;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 18px;
-      padding: 28px;
-      margin-bottom: 18px;
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-    }
-
-    .eyebrow {
-      text-transform: uppercase;
-      letter-spacing: .14em;
-      font-size: .72rem;
-      color: #8ea0d7;
-      margin: 0 0 10px;
-      font-weight: 700;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.03;
-      font-weight: 800;
-    }
-
-    .hero h1 span { color: #fff5a6; }
-
-    .hero p {
-      margin: 14px 0 0;
-      color: var(--muted);
-      line-height: 1.65;
-      max-width: 760px;
-    }
-
-    .hero-note {
-      margin-top: 20px;
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .hero-note strong {
-      display: block;
-      color: #fff5a6;
-      margin-bottom: 6px;
-    }
-
-    .hero-note span {
-      color: var(--muted);
-      font-size: .92rem;
-    }
-
-    .hero-side {
-      display: grid;
-      gap: 14px;
-      align-content: center;
-    }
-
-    .info-card {
-      padding: 18px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .info-card span {
-      display: block;
-      color: var(--muted);
-      font-size: .82rem;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-
-    .info-card strong {
-      font-size: 2rem;
-      line-height: 1;
-      font-weight: 800;
-    }
-
-    .info-card small {
-      display: block;
-      margin-top: 8px;
-      color: #d8e1ff;
-      line-height: 1.45;
-    }
-
-    .summary-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 16px;
-      margin-bottom: 18px;
-    }
-
-    .mini-card {
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .mini-card::after {
-      content: "";
-      position: absolute;
-      right: -36px;
-      top: -36px;
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,.12), transparent 70%);
-    }
-
-    .mini-card .label {
-      color: var(--muted);
-      font-size: .84rem;
-    }
-
-    .mini-card strong {
-      display: block;
-      font-size: 2rem;
-      margin: 8px 0 4px;
-      font-weight: 800;
-    }
-
-    .mini-card small {
-      color: var(--muted);
-      font-size: .82rem;
-    }
-
-    .banner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      padding: 22px 24px;
-      margin-bottom: 18px;
-      background: linear-gradient(135deg, rgba(124,92,255,.82), rgba(20,211,166,.58));
-    }
-
-    .banner h2 {
-      margin: 0;
-      font-size: clamp(1.05rem, 2vw, 1.45rem);
-    }
-
-    .banner .pill {
-      padding: 12px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.18);
-      border: 1px solid rgba(255,255,255,.22);
-      font-weight: 800;
-      white-space: nowrap;
-    }
-
-    .compare-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .planner-card {
-      padding: 22px;
-    }
-
-    .planner-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .planner-title strong {
-      display: block;
-      font-size: 1.3rem;
-      margin-bottom: 6px;
-    }
-
-    .planner-title span {
-      color: var(--muted);
-      font-size: .9rem;
-    }
-
-    .planner-badge {
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: .8rem;
-      font-weight: 800;
-      background: rgba(255,255,255,.08);
-      color: #fff5a6;
-      white-space: nowrap;
-    }
-
-    .planner-stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .stat-box {
-      padding: 14px;
-      border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.06);
-    }
-
-    .stat-box span {
-      display: block;
-      color: var(--muted);
-      font-size: .8rem;
-      margin-bottom: 6px;
-    }
-
-    .stat-box strong {
-      font-size: 1.5rem;
-      font-weight: 800;
-    }
-
-    .stat-box small {
-      display: block;
-      margin-top: 4px;
-      color: #d8e1ff;
-      font-size: .8rem;
-    }
-
-    .status-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .status-item {
-      display: grid;
-      gap: 8px;
-    }
-
-    .status-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: .94rem;
-    }
-
-    .track {
-      height: 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.08);
-      overflow: hidden;
-    }
-
-    .fill {
-      height: 100%;
-      border-radius: inherit;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .wide { grid-column: 1 / -1; }
-
-    .section {
-      padding: 22px;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .section-head h3 {
-      margin: 0;
-      font-size: 1.3rem;
-    }
-
-    .section-head span {
-      color: var(--muted);
-      font-size: .9rem;
-    }
-
-    .delivery-list, .insight-list {
-      display: grid;
-      gap: 14px;
-    }
-
-    .delivery-item, .insight-item {
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.08);
-    }
-
-    .delivery-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .delivery-item .name {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-
-    .delivery-item .meta-text,
-    .insight-item p {
-      color: var(--muted);
-      font-size: .88rem;
-      margin: 0;
-      line-height: 1.55;
-    }
-
-    .delivery-item .value {
-      text-align: right;
-      min-width: 88px;
-    }
-
-    .delivery-item .value strong {
-      display: block;
-      font-size: 1.45rem;
-    }
-
-    .delivery-item .value span {
-      color: var(--muted);
-      font-size: .8rem;
-    }
-
-    .insight-item strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 1rem;
-    }
-
-    .board {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 14px;
-    }
-
-    .board-card {
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.06);
-    }
-
-    .board-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .board-title { font-weight: 800; }
-
-    .board-badge {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.08);
-      color: #fff5a6;
-      font-weight: 800;
-      font-size: .84rem;
-    }
-
-    .board-stats {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: .9rem;
-    }
-
-    .table-wrap {
-      overflow: auto;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.06);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 1100px;
-      background: rgba(255,255,255,.03);
-    }
-
-    th, td {
-      padding: 14px 16px;
-      text-align: left;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      font-size: .93rem;
-    }
-
-    thead th {
-      position: sticky;
-      top: 0;
-      background: #1a2347;
-      z-index: 1;
-    }
-
-    tbody tr:hover { background: rgba(255,255,255,.04); }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: .82rem;
-      font-weight: 800;
-    }
-
-    .status-pill::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: currentColor;
-    }
-
-    .ok { background: rgba(20,211,166,.14); color: #79ffd9; }
-    .progress { background: rgba(255,184,77,.14); color: #ffd18c; }
-    .danger { background: rgba(255,107,122,.14); color: #ffacb5; }
-    .neutral { background: rgba(255,255,255,.12); color: #f2f5ff; }
-
-    @media (max-width: 1120px) {
-      .summary-grid { grid-template-columns: repeat(3, 1fr); }
-      .hero, .compare-grid, .grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 720px) {
-      .shell { width: min(100% - 16px, 1420px); }
-      .topbar, .hero, .planner-card, .section, .banner, .mini-card { padding: 18px; }
-      .summary-grid { grid-template-columns: 1fr; }
-      .banner, .topbar { flex-direction: column; align-items: start; }
-      .delivery-item { grid-template-columns: 1fr; }
-      .delivery-item .value { text-align: left; }
-      .planner-stats { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="auth.js"></script>
+  <script>
+    protegerPagina('login.html');
+  </script>
 </head>
 <body>
-  <div class="orb one"></div>
-  <div class="orb two"></div>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
   <div class="bg-grid"></div>
 
-  <main class="shell">
-    <section class="topbar card">
-      <div class="brand">
-        <small>Painel executivo</small>
-        <strong>Dashboard de Entregas · Empresa x Consultoria</strong>
-      </div>
-      <div class="meta">
-        <div class="meta-pill">Atualização: 08/04/2026 17:05</div>
-        <div class="meta-pill">Fonte: 2 planners</div>
-        <div class="meta-pill">Visão: Consolidada + Comparativa</div>
-      </div>
-    </section>
+  <button class="logout-floating" onclick="fazerLogout()">Sair</button>
 
-    <section class="hero card">
-      <div>
-        <p class="eyebrow">Acompanhamento gerencial</p>
-        <h1>Dashboard Executivo de <span>Entregas</span></h1>
-        <p>
-          Estrutura criada para consolidar os dois planners em uma leitura única e estratégica.
-          O topo mostra a visão geral do programa. Logo abaixo, o painel separa claramente o que é
-          avanço da empresa e o que é avanço da consultoria. Isso evita confusão, reduz maquiagem de número
-          e mostra onde está o peso real da execução.
+  <main class="app-shell">
+    <header class="hero card glass">
+      <div class="hero-copy">
+        <p class="eyebrow">Painel executivo de acompanhamento</p>
+        <h1>Dashboard de <span>Entregas</span></h1>
+        <p class="hero-text">
+          Leitura automática por <strong>RICEs equivalentes</strong> entre Empresa e Consultoria.
+          O painel separa o que é <strong>comparável 1x1</strong> do que é <strong>divergência de base</strong>.
         </p>
-        <div class="hero-note">
-          <strong>Leitura recomendada</strong>
-          <span>Primeiro veja o consolidado. Depois compare Empresa x Consultoria. Por fim, desça para os pontos críticos e ações de destrave.</span>
+
+        <div class="data-update-box">
+          <span class="data-update-label">Base de leitura</span>
+          <strong id="dataAtualizacao">Aguardando leitura das planilhas...</strong>
+          <small>Modo atual: <strong>RICEs iguais</strong> identificados pelo código no início do nome da tarefa.</small>
         </div>
       </div>
 
-      <div class="hero-side">
-        <div class="info-card">
-          <span>Percentual geral</span>
-          <strong>63%</strong>
-          <small>Evolução consolidada considerando os dois planners.</small>
+      <div class="hero-scoreboard">
+        <div class="score-badge compact">
+          <span class="score-label">Leitura executiva</span>
+          <strong id="statusExecutivo">Aguardando dados</strong>
         </div>
-        <div class="info-card">
-          <span>Leitura executiva</span>
-          <strong style="font-size:1.18rem; line-height:1.35;">A consultoria puxa parte relevante da execução, mas o time interno precisa ganhar mais ritmo para reduzir dependência operacional.</strong>
+        <div class="score-ring-wrap">
+          <div class="score-ring">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="48" class="ring-bg"></circle>
+              <circle cx="60" cy="60" r="48" class="ring-progress" id="ringProgress"></circle>
+            </svg>
+            <div class="ring-center">
+              <strong id="globalPercent">0%</strong>
+              <span>concluído</span>
+            </div>
+          </div>
         </div>
       </div>
+    </header>
+
+    <section class="summary-grid summary-grid-6">
+      <article class="mini-card card">
+        <span class="mini-label">Total comparável</span>
+        <strong id="totalItens">0</strong>
+        <small>pares 1x1 entre Empresa e Consultoria</small>
+      </article>
+      <article class="mini-card card">
+        <span class="mini-label">RICEs iguais</span>
+        <strong id="totalRicesIguais">0</strong>
+        <small>códigos casados nas duas bases</small>
+      </article>
+      <article class="mini-card card">
+        <span class="mini-label">Concluídos</span>
+        <strong id="totalConcluidos">0</strong>
+        <small>par concluído nos dois lados</small>
+      </article>
+      <article class="mini-card card">
+        <span class="mini-label">Em andamento</span>
+        <strong id="totalAndamento">0</strong>
+        <small>par ainda em execução</small>
+      </article>
+      <article class="mini-card card">
+        <span class="mini-label">Não iniciados</span>
+        <strong id="totalNaoIniciado">0</strong>
+        <small>par parado nos dois lados</small>
+      </article>
+      <article class="mini-card card">
+        <span class="mini-label">Atrasados/Bloqueados</span>
+        <strong id="totalCriticos">0</strong>
+        <small>qualquer lado crítico</small>
+      </article>
+      <article class="mini-card card">
+        <span class="mini-label">Só na Empresa</span>
+        <strong id="totalSoEmpresa">0</strong>
+        <small>RICE sem par na Consultoria</small>
+      </article>
+      <article class="mini-card card">
+        <span class="mini-label">Só na Consultoria</span>
+        <strong id="totalSoConsultoria">0</strong>
+        <small>RICE sem par na Empresa</small>
+      </article>
+      <article class="mini-card card">
+        <span class="mini-label">Total RICEs Empresa</span>
+        <strong id="totalRicesEmpresa">0</strong>
+        <small>comparáveis + só na Empresa</small>
+      </article>
+      <article class="mini-card card">
+        <span class="mini-label">Total RICEs Consultoria</span>
+        <strong id="totalRicesConsultoria">0</strong>
+        <small>comparáveis + só na Consultoria</small>
+      </article>
     </section>
 
-    <section class="summary-grid">
-      <article class="mini-card card">
-        <span class="label">Total consolidado</span>
-        <strong>146</strong>
-        <small>itens dos dois planners</small>
-      </article>
-      <article class="mini-card card">
-        <span class="label">Concluídos</span>
-        <strong>92</strong>
-        <small>entregas finalizadas</small>
-      </article>
-      <article class="mini-card card">
-        <span class="label">Em andamento</span>
-        <strong>31</strong>
-        <small>frentes em execução</small>
-      </article>
-      <article class="mini-card card">
-        <span class="label">Não iniciados</span>
-        <strong>13</strong>
-        <small>estoque para avanço</small>
-      </article>
-      <article class="mini-card card">
-        <span class="label">Bloqueados</span>
-        <strong>6</strong>
-        <small>pendências críticas</small>
-      </article>
-      <article class="mini-card card">
-        <span class="label">Atrasados</span>
-        <strong>11</strong>
-        <small>ação imediata</small>
-      </article>
-    </section>
-
-    <section class="banner card">
+    <section class="headline-banner card">
       <div>
-        <p class="eyebrow" style="margin-bottom:6px;color:#e8edff;">Síntese</p>
-        <h2>O programa avança, mas o comparativo entre os dois planners deixa claro onde a consultoria ainda segura mais volume e onde a empresa precisa absorver ritmo.</h2>
+        <p class="eyebrow">Base comparável</p>
+        <h2 id="headlineCallout">Carregando os RICEs equivalentes entre Empresa e Consultoria.</h2>
       </div>
-      <div class="pill">Comparativo ativo</div>
+      <div class="banner-pill" id="headlinePill">RICE igual</div>
     </section>
 
-    <section class="compare-grid">
-      <article class="planner-card card">
-        <div class="planner-head">
-          <div class="planner-title">
-            <strong>Planner da Empresa</strong>
-            <span>Visão do time interno, acompanhamento operacional e absorção de execução</span>
+    <section class="dashboard-grid two-up">
+      <article class="card section-card planner-card empresa">
+        <div class="section-title-wrap">
+          <div>
+            <p class="eyebrow">Planner</p>
+            <h3>Empresa</h3>
           </div>
-          <div class="planner-badge">56% concluído</div>
+          <span class="section-hint">Programa Conecta - Acompanhamento interno</span>
         </div>
-
-        <div class="planner-stats">
-          <div class="stat-box"><span>Total</span><strong>78</strong><small>itens monitorados</small></div>
-          <div class="stat-box"><span>Concluídos</span><strong>44</strong><small>entregas finalizadas</small></div>
-          <div class="stat-box"><span>Em andamento</span><strong>18</strong><small>execução em curso</small></div>
-          <div class="stat-box"><span>Bloqueados</span><strong>5</strong><small>travamentos relevantes</small></div>
-        </div>
-
-        <div class="status-list">
-          <div class="status-item">
-            <div class="status-head"><strong>Concluído</strong><span>44 · 56%</span></div>
-            <div class="track"><div class="fill" style="width:56%; background:linear-gradient(90deg,#14d3a6,#7dffd8)"></div></div>
-          </div>
-          <div class="status-item">
-            <div class="status-head"><strong>Em andamento</strong><span>18 · 23%</span></div>
-            <div class="track"><div class="fill" style="width:23%; background:linear-gradient(90deg,#ffb84d,#ffd88d)"></div></div>
-          </div>
-          <div class="status-item">
-            <div class="status-head"><strong>Não iniciado</strong><span>9 · 12%</span></div>
-            <div class="track"><div class="fill" style="width:12%; background:linear-gradient(90deg,#7c5cff,#b7a6ff)"></div></div>
-          </div>
-          <div class="status-item">
-            <div class="status-head"><strong>Bloqueado</strong><span>5 · 6%</span></div>
-            <div class="track"><div class="fill" style="width:6%; background:linear-gradient(90deg,#ff4d6d,#ff8fa3)"></div></div>
-          </div>
+        <div class="planner-metrics" id="empresaMetrics">
+          <div class="empty-state">Aguardando dados.</div>
         </div>
       </article>
 
-      <article class="planner-card card">
-        <div class="planner-head">
-          <div class="planner-title">
-            <strong>Planner da Consultoria</strong>
-            <span>Visão da consultoria, entregas especializadas e execução técnica/fucional externa</span>
+      <article class="card section-card planner-card consultoria">
+        <div class="section-title-wrap">
+          <div>
+            <p class="eyebrow">Planner</p>
+            <h3>Consultoria</h3>
           </div>
-          <div class="planner-badge">67% concluído</div>
+          <span class="section-hint">AN.020 - Acompanhamento RICE's</span>
         </div>
-
-        <div class="planner-stats">
-          <div class="stat-box"><span>Total</span><strong>68</strong><small>itens monitorados</small></div>
-          <div class="stat-box"><span>Concluídos</span><strong>46</strong><small>entregas finalizadas</small></div>
-          <div class="stat-box"><span>Em andamento</span><strong>13</strong><small>execução em curso</small></div>
-          <div class="stat-box"><span>Bloqueados</span><strong>1</strong><small>baixa retenção por trava</small></div>
-        </div>
-
-        <div class="status-list">
-          <div class="status-item">
-            <div class="status-head"><strong>Concluído</strong><span>46 · 67%</span></div>
-            <div class="track"><div class="fill" style="width:67%; background:linear-gradient(90deg,#14d3a6,#7dffd8)"></div></div>
-          </div>
-          <div class="status-item">
-            <div class="status-head"><strong>Em andamento</strong><span>13 · 19%</span></div>
-            <div class="track"><div class="fill" style="width:19%; background:linear-gradient(90deg,#ffb84d,#ffd88d)"></div></div>
-          </div>
-          <div class="status-item">
-            <div class="status-head"><strong>Não iniciado</strong><span>4 · 6%</span></div>
-            <div class="track"><div class="fill" style="width:6%; background:linear-gradient(90deg,#7c5cff,#b7a6ff)"></div></div>
-          </div>
-          <div class="status-item">
-            <div class="status-head"><strong>Bloqueado</strong><span>1 · 1%</span></div>
-            <div class="track"><div class="fill" style="width:1%; background:linear-gradient(90deg,#ff4d6d,#ff8fa3)"></div></div>
-          </div>
+        <div class="planner-metrics" id="consultoriaMetrics">
+          <div class="empty-state">Aguardando dados.</div>
         </div>
       </article>
     </section>
 
-    <section class="grid">
-      <article class="section card">
-        <div class="section-head">
+    <section class="dashboard-grid">
+      <article class="card section-card">
+        <div class="section-title-wrap">
           <div>
-            <p class="eyebrow">Leitura de capacidade</p>
-            <h3>Responsáveis de maior entrega</h3>
+            <p class="eyebrow">Responsáveis</p>
+            <h3>Desempenho por responsável</h3>
           </div>
-          <span>misturando os dois planners</span>
+          <span class="section-hint">somente nos cards comparáveis 1x1</span>
         </div>
-
-        <div class="delivery-list">
-          <div class="delivery-item">
-            <div>
-              <div class="name">Camila Lorena · Empresa</div>
-              <div class="meta-text">12 concluídas de 16 itens · 2 em andamento</div>
-            </div>
-            <div class="value"><strong>75%</strong><span>aproveitamento</span></div>
-          </div>
-          <div class="delivery-item">
-            <div>
-              <div class="name">Paulo Pacheco · Empresa</div>
-              <div class="meta-text">10 concluídas de 14 itens · 3 em andamento</div>
-            </div>
-            <div class="value"><strong>71%</strong><span>aproveitamento</span></div>
-          </div>
-          <div class="delivery-item">
-            <div>
-              <div class="name">Roberto Costa · Consultoria</div>
-              <div class="meta-text">14 concluídas de 18 itens · 2 em andamento</div>
-            </div>
-            <div class="value"><strong>78%</strong><span>aproveitamento</span></div>
-          </div>
-          <div class="delivery-item">
-            <div>
-              <div class="name">Antonio · Consultoria</div>
-              <div class="meta-text">11 concluídas de 15 itens · 2 em andamento</div>
-            </div>
-            <div class="value"><strong>73%</strong><span>aproveitamento</span></div>
-          </div>
+        <div id="leaderboard" class="leaderboard-list empty-state">
+          Aguardando leitura das planilhas.
         </div>
       </article>
 
-      <article class="section card">
-        <div class="section-head">
+      <article class="card section-card">
+        <div class="section-title-wrap">
           <div>
-            <p class="eyebrow">Insight gerencial</p>
-            <h3>O que o gerente precisa ver</h3>
+            <p class="eyebrow">Distribuição</p>
+            <h3>Status geral dos pares</h3>
           </div>
-          <span>sem floreio, só leitura útil</span>
+          <span class="section-hint">só o que casou 1x1</span>
         </div>
-
-        <div class="insight-list">
-          <div class="insight-item">
-            <strong>1. A consultoria está mais avançada em percentual</strong>
-            <p>O planner da consultoria apresenta avanço superior ao da empresa, o que sugere maior maturidade de execução na frente externa neste momento.</p>
-          </div>
-          <div class="insight-item">
-            <strong>2. A empresa concentra mais bloqueios</strong>
-            <p>O volume de itens bloqueados no planner interno é maior. Isso pode indicar dependência de definição, decisão ou absorção operacional mais lenta.</p>
-          </div>
-          <div class="insight-item">
-            <strong>3. O risco não é só prazo — é dependência</strong>
-            <p>Se a empresa não aumentar sua taxa de conclusão, a leitura executiva fica clara: o programa avança, mas continua apoiado em maior peso da consultoria.</p>
-          </div>
+        <div id="statusBars" class="status-bars empty-state">
+          Aguardando dados.
         </div>
       </article>
 
-      <article class="section card wide">
-        <div class="section-head">
+      <article class="card section-card wide">
+        <div class="section-title-wrap">
           <div>
-            <p class="eyebrow">Desempenho por frente</p>
-            <h3>Áreas com melhor evolução</h3>
+            <p class="eyebrow">Comparativo</p>
+            <h3>Empresa x Consultoria por status</h3>
           </div>
-          <span>comparando execução entre frentes</span>
+          <span class="section-hint">mesmo conjunto de RICEs comparáveis</span>
         </div>
-
-        <div class="board">
-          <div class="board-card">
-            <div class="board-top"><div class="board-title">PPM</div><div class="board-badge">72%</div></div>
-            <div class="track" style="margin-top:12px;"><div class="fill" style="width:72%; background:linear-gradient(90deg,#7c5cff,#14d3a6)"></div></div>
-            <div class="board-stats"><span>26/36 concluídas</span><span>Empresa + Consultoria</span></div>
-          </div>
-          <div class="board-card">
-            <div class="board-top"><div class="board-title">Financeiro</div><div class="board-badge">68%</div></div>
-            <div class="track" style="margin-top:12px;"><div class="fill" style="width:68%; background:linear-gradient(90deg,#7c5cff,#14d3a6)"></div></div>
-            <div class="board-stats"><span>19/28 concluídas</span><span>Empresa + Consultoria</span></div>
-          </div>
-          <div class="board-card">
-            <div class="board-top"><div class="board-title">Integrações</div><div class="board-badge">61%</div></div>
-            <div class="track" style="margin-top:12px;"><div class="fill" style="width:61%; background:linear-gradient(90deg,#7c5cff,#14d3a6)"></div></div>
-            <div class="board-stats"><span>17/28 concluídas</span><span>Empresa + Consultoria</span></div>
-          </div>
-          <div class="board-card">
-            <div class="board-top"><div class="board-title">Testes</div><div class="board-badge">57%</div></div>
-            <div class="track" style="margin-top:12px;"><div class="fill" style="width:57%; background:linear-gradient(90deg,#7c5cff,#14d3a6)"></div></div>
-            <div class="board-stats"><span>16/28 concluídas</span><span>Empresa + Consultoria</span></div>
-          </div>
+        <div id="comparisonBoard" class="comparison-board empty-state">
+          Sem dados carregados ainda.
         </div>
       </article>
 
-      <article class="section card wide">
-        <div class="section-head">
+      <article class="card section-card wide">
+        <div class="section-title-wrap">
           <div>
-            <p class="eyebrow">Prioridades</p>
+            <p class="eyebrow">RICEs</p>
+            <h3>Desempenho por código de RICE</h3>
+          </div>
+          <span class="section-hint">um par por código, sem misturar divergência</span>
+        </div>
+        <div class="rice-filter-panel" id="riceFilterPanel">
+          <div class="rice-filter-copy">
+            <strong>Filtro multi-seletor</strong>
+            <span>Escolha quais RICEs devem aparecer neste painel.</span>
+          </div>
+          <div class="rice-filter-actions">
+            <button type="button" class="mini-filter-btn" id="btnRiceFilterAll">Marcar todos</button>
+            <button type="button" class="mini-filter-btn ghost" id="btnRiceFilterClear">Limpar</button>
+          </div>
+        </div>
+        <select id="riceFilterSelect" class="rice-filter-select" multiple size="8" aria-label="Filtro de RICEs do painel de desempenho por código de RICE"></select>
+        <div id="riceFilterStatus" class="rice-filter-status">Aguardando leitura das planilhas.</div>
+        <div id="riceBoard" class="area-board empty-state">
+          Sem dados carregados ainda.
+        </div>
+      </article>
+
+      <article class="card section-card wide">
+        <div class="section-title-wrap">
+          <div>
+            <p class="eyebrow">Divergências</p>
+            <h3>RICEs que não casaram</h3>
+          </div>
+          <span class="section-hint">saneamento de base, não avanço de projeto</span>
+        </div>
+        <div id="divergenceBoard" class="area-board empty-state">
+          Sem dados carregados ainda.
+        </div>
+      </article>
+
+      <article class="card section-card wide">
+        <div class="section-title-wrap">
+          <div>
+            <p class="eyebrow">Atenção</p>
             <h3>Itens críticos para destrave</h3>
           </div>
-          <span>com origem do planner visível</span>
+          <span class="section-hint">bloqueados, atrasados e não iniciados nos pares 1x1</span>
         </div>
-
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>Origem</th>
                 <th>RICE</th>
-                <th>Cenário</th>
+                <th>Fase</th>
+                <th>Tarefa</th>
                 <th>Responsável</th>
-                <th>Área</th>
-                <th>Prioridade</th>
+                <th>Status</th>
+              </tr>
+              <tr class="table-filter-row">
+                <th>
+                  <select id="focusFilterOrigem" class="table-filter-select">
+                    <option value="">Todos</option>
+                  </select>
+                </th>
+                <th>
+                  <select id="focusFilterRice" class="table-filter-select">
+                    <option value="">Todos</option>
+                  </select>
+                </th>
+                <th>
+                  <select id="focusFilterFase" class="table-filter-select">
+                    <option value="">Todos</option>
+                  </select>
+                </th>
+                <th>
+                  <select id="focusFilterTarefa" class="table-filter-select">
+                    <option value="">Todos</option>
+                  </select>
+                </th>
+                <th>
+                  <select id="focusFilterResponsavel" class="table-filter-select">
+                    <option value="">Todos</option>
+                  </select>
+                </th>
+                <th>
+                  <select id="focusFilterStatus" class="table-filter-select">
+                    <option value="">Todos</option>
+                  </select>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="focusTable">
+              <tr><td colspan="6" class="empty-cell">Nada carregado ainda.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="card section-card">
+        <div class="section-title-wrap">
+          <div>
+            <p class="eyebrow">RICEs da Empresa</p>
+            <h3>Só na Empresa</h3>
+          </div>
+          <span class="section-hint">código, descrição, atribuído e fases</span>
+        </div>
+        <div id="divergenceEmpresaList" class="leaderboard-list empty-state">
+          Aguardando leitura das planilhas.
+        </div>
+      </article>
+
+      <article class="card section-card">
+        <div class="section-title-wrap">
+          <div>
+            <p class="eyebrow">RICEs da Consultoria</p>
+            <h3>Só na Consultoria</h3>
+          </div>
+          <span class="section-hint">código, descrição, atribuído e fases</span>
+        </div>
+        <div id="divergenceConsultoriaList" class="leaderboard-list empty-state">
+          Aguardando leitura das planilhas.
+        </div>
+      </article>
+
+      <article class="card section-card wide">
+        <div class="section-title-wrap">
+          <div>
+            <p class="eyebrow">Divergências detalhadas</p>
+            <h3>RICEs só de um lado</h3>
+          </div>
+          <span class="section-hint">lista prática para saneamento</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Origem</th>
+                <th>RICE</th>
+                <th>ID</th>
+                <th>Tarefa</th>
+                <th>Responsável</th>
                 <th>Status</th>
                 <th>Observação</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Empresa</td>
-                <td>RICE-014</td>
-                <td>Integração PPM x EPM</td>
-                <td>Camila Lorena</td>
-                <td>Integrações</td>
-                <td>Alta</td>
-                <td><span class="status-pill danger">Bloqueado</span></td>
-                <td>Dependência externa de definição funcional</td>
-              </tr>
-              <tr>
-                <td>Empresa</td>
-                <td>RICE-033</td>
-                <td>Validação de regra contábil</td>
-                <td>Volnei Pereira</td>
-                <td>Financeiro</td>
-                <td>Média</td>
-                <td><span class="status-pill danger">Não iniciado</span></td>
-                <td>Necessita priorização da frente</td>
-              </tr>
-              <tr>
-                <td>Consultoria</td>
-                <td>RICE-081</td>
-                <td>Ajuste técnico integração OIC</td>
-                <td>Roberto Costa</td>
-                <td>Integrações</td>
-                <td>Alta</td>
-                <td><span class="status-pill progress">Em andamento</span></td>
-                <td>Pendente validação final com time interno</td>
-              </tr>
-              <tr>
-                <td>Consultoria</td>
-                <td>RICE-092</td>
-                <td>Parametrização complementar</td>
-                <td>Antonio</td>
-                <td>Configuração</td>
-                <td>Alta</td>
-                <td><span class="status-pill neutral">Atrasado</span></td>
-                <td>Aguardando agenda conjunta para fechamento</td>
-              </tr>
-              <tr>
-                <td>Empresa</td>
-                <td>RICE-061</td>
-                <td>Carga de parâmetros iniciais</td>
-                <td>Paulo Pacheco</td>
-                <td>Configuração</td>
-                <td>Alta</td>
-                <td><span class="status-pill danger">Bloqueado</span></td>
-                <td>Pendente retorno da consultoria</td>
-              </tr>
-              <tr>
-                <td>Consultoria</td>
-                <td>RICE-104</td>
-                <td>Homologação de ajuste funcional</td>
-                <td>Antonio</td>
-                <td>Testes</td>
-                <td>Média</td>
-                <td><span class="status-pill progress">Em andamento</span></td>
-                <td>Necessita validação com key-user</td>
-              </tr>
+            <tbody id="divergenceTable">
+              <tr><td colspan="7" class="empty-cell">Nada carregado ainda.</td></tr>
             </tbody>
           </table>
         </div>
       </article>
     </section>
   </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
