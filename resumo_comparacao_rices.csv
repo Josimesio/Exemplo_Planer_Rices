@@ -1,0 +1,13 @@
+﻿Indicador;Valor
+gerado_em;2026-05-15 14:40:36
+arquivo_empresa;Programa Conecta - Acompanhamento interno.xlsx
+arquivo_consultoria;AN.020 - Acompanhamento RICEs.xlsx
+linhas_empresa_origem;3603
+linhas_consultoria_origem;337
+rices_empresa_sem_repetir;352
+rices_consultoria_sem_repetir;353
+rices_iguais;249
+rices_so_empresa;103
+rices_so_consultoria;104
+total_rices_sem_repetir_duas_bases;456
+linhas_csv_geradas;705

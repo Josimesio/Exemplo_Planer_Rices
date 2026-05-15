@@ -532,3 +532,6 @@ tbody tr:hover { background: rgba(255,255,255,.04); }
   .loader-actions { justify-content: stretch; }
   .loader-button { width: 100%; }
 }
+.status-fill {
+  background: linear-gradient(90deg, #7c5cff, #14d3a6);
+}
